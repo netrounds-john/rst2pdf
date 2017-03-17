@@ -168,9 +168,9 @@ class PDFBuilder(Builder):
                         subtree = process_tree(includefile,
                         self.env.get_doctree(includefile))
                         self.docnames.add(includefile)
-                    except Exception:
-                        self.warn('%s: toctree contains ref to nonexisting file %r'\
-                                                     % (docname, includefile))
+                    except Exception as ex:
+                        self.warn('%s: toctree contains ref to nonexisting file %r: %s'\
+                                                     % (docname, includefile, ex))
                     else:
                         sof = addnodes.start_of_file(docname=includefile)
                         sof.children = subtree.children
