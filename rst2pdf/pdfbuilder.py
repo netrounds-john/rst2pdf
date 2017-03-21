@@ -130,6 +130,7 @@ class PDFBuilder(Builder):
                 log.error(str(e))
                 print_exc()
                 self.info(red("FAILED"))
+                raise
 
     def init_document_data(self):
         preliminary_document_data = map(list, self.config.pdf_documents)
