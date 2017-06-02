@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
 
+import glob
 import os
-from os.path import abspath, dirname, expanduser, join
 import sys
 import tempfile
-from copy import copy
-from reportlab.platypus.flowables import Image, Flowable
-from log import log, nodeid
-from reportlab.lib.units import *
-import glob
 import urllib
+from copy import copy
+from os.path import abspath, dirname, expanduser, join
 
+from log import log, nodeid
 from opt_imports import LazyImports
-
+from reportlab.lib.units import *
+from reportlab.platypus.flowables import Flowable, Image
 from svgimage import SVGImage
 
 # This assignment could be overridden by an extension module
@@ -458,14 +457,17 @@ class MyImage (Flowable):
                     # adjust by height
                     # FIXME get rst file info (line number)
                     # here for better error message
-                    log.warning('image %s is too tall for the '\
-                                'frame, rescaling'%\
-                                self.filename)
+
+                    # NOTE (netrounds) this warning make Sphinx==1.6 fail
+                    # log.warning('image %s is too tall for the '\
+                    #             'frame, rescaling'%\
+                    #             self.filename)
                     self.image.drawHeight = availHeight
                     self.image.drawWidth = availHeight*self.__ratio
             elif self.image.drawWidth > availWidth:
-                log.warning('image %s is too wide for the frame, rescaling'%\
-                            self.filename)
+                # NOTE (netrounds) this warning make Sphinx==1.6 fail
+                # log.warning('image %s is too wide for the frame, rescaling'%\
+                #             self.filename)
                 self.image.drawWidth = availWidth
                 self.image.drawHeight = availWidth / self.__ratio
             return self.image.wrap(availWidth, availHeight)
@@ -480,7 +482,7 @@ class MyImage (Flowable):
             canv.linkURL(self.target,
                     (
                     x + offset, y,
-                    x + offset + self.image.drawWidth, 
+                    x + offset + self.image.drawWidth,
                     y + self.image.drawHeight),
                     relative = True,
                     #thickness = 3,
