@@ -6,7 +6,7 @@
 import os
 from setuptools import setup, find_packages
 
-version = '0.93+netrounds2'
+version = '0.93+netrounds3'
 
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
